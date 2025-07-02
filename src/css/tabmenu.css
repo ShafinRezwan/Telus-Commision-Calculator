@@ -1,0 +1,30 @@
+.tab-menu {
+  display: flex;
+  position: relative;
+  gap: 0.5rem;
+  margin-left: 13rem;
+  margin-bottom: -12px;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: #d9d9d9;
+  color: #000000;
+  border-radius: 8px;
+  border: none;
+  font-family: "Helvetica Neue";
+  font-weight: 400;
+  font-size: 1.1rem;
+  border-top: 1px solid transparent;
+  transition: border-color 0.3s ease, border-top-width 0.1s ease;
+  cursor: pointer;
+  padding-bottom: 15px;
+}
+
+.tab-btn.active.calculate {
+  border-top: 6px solid #4b286d;
+}
+
+.tab-btn.active.orders {
+  border-top: 6px solid #2b8000;
+}

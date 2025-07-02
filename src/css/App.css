@@ -1,0 +1,10 @@
+.container {
+  margin: 2rem 4rem;
+}
+
+#services {
+  background: #ffffff;
+  border-radius: 4px;
+  width: 6vw;
+  height: 3vh;
+}
