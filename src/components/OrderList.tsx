@@ -11,15 +11,16 @@ function OrderList({ orders, onRemove }: Props) {
       {orders.map((order) => (
         <div className="order-item" key={order.id}>
           <div className="order-sum">
-            <span>🟢 {order.service}</span>
+            <span className="circle-toggle"></span>
+            <span className="service">{order.service}</span>
           </div>
           <div className="values">
             <span>$ {order.commission.toFixed(2)}</span>
             <span>SV {order.sv.toFixed(2)}</span>
-            <button className="x-btn" onClick={() => onRemove(order.id)}>
-              X
-            </button>
           </div>
+          <button className="x-btn" onClick={() => onRemove(order.id)}>
+            X
+          </button>
         </div>
       ))}
     </div>

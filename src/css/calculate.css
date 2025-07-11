@@ -125,3 +125,19 @@ label {
     width: 100%;
   }
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.total-calc {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  align-items: flex-end;
+  font-size: 1rem;
+  margin-right: 85px;
+}
