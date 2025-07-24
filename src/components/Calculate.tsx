@@ -114,7 +114,9 @@ function Calculate() {
   ];
 */
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -139,23 +141,97 @@ function Calculate() {
     setFormData((prev) => ({ ...prev, service: "" }));
   };
   */
-  /*
-  const handleSubmit = () => {
- 
-    const newOrder: Order = {
-      id: crypto.randomUUID(),
-      service: formData.service,
-      orderNumber: formData.orderNumber,
-      accountNumber: formData.accountNumber,
-      phoneNumber: formData.phoneNumber,
-      note: formData.note,
-      commission: 0,
-      sv: 0,
+  const [commissionRates, setCommissionRates] = useState<any[]>([]); // raw commission rate records
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      const { data, error } = await supabase
+        .from("commissionrate")
+        .select("crid, name, display_name, SV, rate, category_name");
+
+      if (error) {
+        console.error("Failed to fetch options:", error.message);
+        return;
+      }
+
+      setCommissionRates(data); // <-- store the full commission rate data
+
+      // (your existing grouping code for the Select dropdown)
     };
-    
-    setOrders((prev) => [...prev, newOrder]);
+
+    fetchOptions();
+  }, []);
+
+  const handleSubmit = async () => {
+    //console.log(orders);
+    try {
+      const { data, error } = await supabase
+        .from("transactions")
+        .upsert({
+          uid: "fea236b9-4f57-45d3-9ade-7266af9b4674",
+          notes: formData.note,
+          phone_number: formData.phoneNumber,
+          order_number: formData.orderNumber,
+          account_number: formData.accountNumber,
+        })
+        .select();
+      /*
+      const { data: transactionData, error: transactionError } = await supabase
+        .from("transactions")
+        .insert([
+          {
+  
+            notes: formData.note,
+            phone_number: formData.phoneNumber,
+            //created_at: new Date()
+          },
+        ])
+        .select();
+        */
+      if (error) {
+        console.error("Error inserting transaction:", error);
+        return;
+      }
+      console.log("Inserted Transaction:", data);
+
+      // Insert related Commissions
+
+      const commissionsPayload = orders.map((order) => {
+        const matchingRate = commissionRates.find(
+          (rate) => rate.display_name === order.service
+        );
+        return {
+          tid: data?.[0]?.tid,
+          commission_type: matchingRate?.crid, // <-- store the id
+        };
+      });
+
+      console.log("Commissions to insert:", commissionsPayload);
+
+      const { error: commissionsError } = await supabase
+        .from("commissions")
+        .insert(commissionsPayload);
+      if (commissionsError) {
+        console.error("Error inserting commissions:", commissionsError);
+        return;
+      }
+
+      console.log("Successfully submitted transaction and commissions");
+      // Reset form and orders
+      setFormData({
+        service: "",
+        orderNumber: "",
+        accountNumber: "",
+        phoneNumber: "",
+        note: "",
+      });
+      setOrders([]);
+      setService([]);
+    } catch (err) {
+      console.error("Unexpected error submitting data:", err);
+    }
   };
-  */
+
   const handleRemove = (id: string) => {
     setOrders((prev) => prev.filter((order) => order.id !== id));
   };
@@ -187,6 +263,17 @@ function Calculate() {
   );
   const totalSV = orders.reduce((sum, order) => sum + order.sv, 0);
 
+  const colourStyles = {
+    control: (styles: any) => ({
+      ...styles,
+      backgroundColor: "white",
+      border: "2px solid #2b8000",
+      borderRadius: "8px",
+      width: `13vw`,
+      height: "7vh",
+    }),
+  };
+
   return (
     <div className="container-calculate">
       <div className="form-container">
@@ -197,6 +284,7 @@ function Calculate() {
               options={options}
               value={service}
               onChange={setSelectedServices}
+              styles={colourStyles}
               isMulti
             />
           </div>
@@ -205,7 +293,7 @@ function Calculate() {
         <div className="input-bundle">
           <label htmlFor="order">Order #</label>
           <input
-            type="text"
+            type="number"
             name="orderNumber"
             value={formData.orderNumber}
             onChange={handleChange}
@@ -237,27 +325,37 @@ function Calculate() {
         <OrderList orders={orders} onRemove={handleRemove} />
       </div>
       <div className="total-calc">
-        <h3>
+        <span>
           {totalCommission === 0 ? "" : `$ ${totalCommission.toFixed(2)}`}
-        </h3>
-        <h3> {totalSV === 0 ? "" : `SV ${totalSV.toFixed(2)}`}</h3>
+        </span>
+        <span> {totalSV === 0 ? "" : `SV ${totalSV.toFixed(2)}`}</span>
       </div>
 
       <div className="notes-container">
         <div className="input-bundle notes">
           <label htmlFor="notes">Notes </label>
-          <input
-            type="text"
+          <textarea
             name="note"
             className="notes-input"
             value={formData.note}
             onChange={handleChange}
+            rows={10}
+            cols={40}
           />
         </div>
-        <button className="submit-btn">Submit</button>
+        <button
+          className="submit-btn"
+          onClick={handleSubmit}
+          disabled={orders.length === 0}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );
 }
 
 export default Calculate;
+function chroma(color: any) {
+  throw new Error("Function not implemented.");
+}
