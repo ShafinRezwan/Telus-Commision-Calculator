@@ -310,7 +310,6 @@ const Orders = () => {
                 0
               )
               .toFixed(2);
-
             return (
               <>
                 <div
@@ -346,7 +345,13 @@ const Orders = () => {
       )}
       <hr className="divider-line" />
       <div className="total-container">
-        <h1 className="total">Total</h1>
+        <div className="leftside-total">
+          <h1 className="total">Total</h1>
+          <span className="payperiod-commission">
+            Commission to date for pay period - ${" "}
+            {null ? totalsumCommission : "XXX.XX"}
+          </span>
+        </div>
         <div className="total-amounts">
           <p>$ {totalsumCommission.toFixed(2)}</p>
           <p>SV {totalsumSV.toFixed(2)}</p>
