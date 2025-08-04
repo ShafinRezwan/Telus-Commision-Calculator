@@ -3,6 +3,7 @@ export type Tab = "calculate" | "orders";
 
 
 export interface Order {
+  tid: any;
   id: string;
   service: string;
   orderNumber: string;
