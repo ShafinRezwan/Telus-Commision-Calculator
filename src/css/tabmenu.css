@@ -2,8 +2,8 @@
   display: flex;
   position: relative;
   gap: 0.5rem;
-  margin-left: 13rem;
-  margin-bottom: -12px;
+  margin-left: 10.5rem;
+  margin-bottom: -13px;
 }
 
 .tab-btn {
@@ -27,4 +27,8 @@
 
 .tab-btn.active.orders {
   border-top: 6px solid #2b8000;
+}
+
+.tab-btn.active.profile {
+  border-top: 6px solid #ff53c9;
 }

@@ -1,5 +1,5 @@
 // 2 tabs
-export type Tab = "calculate" | "orders";
+export type Tab = "calculate" | "orders" | "profile";
 
 
 export interface Order {

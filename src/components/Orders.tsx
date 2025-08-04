@@ -251,40 +251,46 @@ const Orders = () => {
         </div>
       </div>
       <div className="date_wrapper">
-        <button className="arrow" onClick={handlePrevDay}>
-          &lt;
-        </button>
-        {/* Hidden DatePicker, triggered by span click */}
-        <DatePicker
-          className="current-date"
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date as Date)}
-          ref={datePickerRef}
-          customInput={<span>{selectedDate.toDateString()}</span>}
-        />
-        <button className="arrow" onClick={handleNextDay}>
-          &gt;
-        </button>
-        {showDatePicker && (
-          <div
-            style={{
-              position: "absolute",
-              top: "2rem",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => {
-                if (date) setSelectedDate(date);
-                setShowDatePicker(false);
+        <div className="profile">
+          <span className="prof">Profile</span>
+        </div>
+        <div className="date-center">
+          <button className="arrow" onClick={handlePrevDay}>
+            &lt;
+          </button>
+          {/* Hidden DatePicker, triggered by span click */}
+          <DatePicker
+            className="current-date"
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date as Date)}
+            ref={datePickerRef}
+            customInput={<span>{selectedDate.toDateString()}</span>}
+          />
+          <button className="arrow" onClick={handleNextDay}>
+            &gt;
+          </button>
+          {showDatePicker && (
+            <div
+              style={{
+                position: "absolute",
+                top: "2rem",
+                left: "50%",
+                transform: "translateX(-50%)",
               }}
-              inline
-            />
-          </div>
-        )}
+            >
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => {
+                  if (date) setSelectedDate(date);
+                  setShowDatePicker(false);
+                }}
+                inline
+              />
+            </div>
+          )}
+        </div>
       </div>
+
       <hr className="divider-line" />
 
       <div className="orders-list">
