@@ -1,0 +1,212 @@
+.order-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: -40px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #c0c0bf;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4b286d;
+  border-radius: 30px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6a3f95;
+}
+
+.divider-line {
+  border: none;
+  border-top: 3px solid #4b286d;
+  width: 90%;
+  margin: 1rem auto;
+}
+.date_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: -50px;
+}
+
+.current-date {
+  font-size: 2rem;
+  cursor: pointer;
+  font-family: "Helvetica Neue";
+  font-weight: 500;
+}
+
+.arrow {
+  background-color: transparent;
+  color: black;
+  border: none;
+  font-size: 2rem;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.pay-container {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #4b286d;
+  font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  padding-left: 60px;
+}
+.pay-period {
+  cursor: pointer;
+}
+
+.date-wrapper .react-datepicker-popper {
+  position: absolute !important;
+  top: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* Main datepicker container */
+.react-datepicker {
+  background-color: white;
+  border-radius: 10px;
+  font-family: "Helvetica Neue";
+}
+
+/* Header (month + navigation arrows) */
+.react-datepicker__header {
+  background-color: #2b8000; /* purple */
+  border-bottom: none;
+  color: white;
+}
+
+/* Day cells */
+.react-datepicker__day {
+  color: black;
+  background-color: transparent;
+}
+
+/* Selected day */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #2b8000;
+  color: white;
+  border-radius: 50%;
+}
+
+/* Hovered day */
+.react-datepicker__day:hover {
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+/* Today’s date */
+.react-datepicker__day--today {
+  font-weight: bold;
+  color: #fe8426;
+}
+
+/* Navigation arrows */
+.react-datepicker__navigation-icon::before {
+  border-color: black;
+}
+
+/* Change the color of the weekday labels */
+/*
+.react-datepicker__day-name {
+  color: white;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.react-datepicker__current-month {
+  color: white;
+  font-weight: 500;
+}
+*/
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px; /* optional: keeps content from stretching too wide */
+  height: 500px; /* set your desired fixed height */
+  overflow-y: auto; /* enables vertical scroll */
+  padding-right: 10px; /* to make room for scrollbar */
+}
+.services-title {
+  font-size: 2rem;
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: #718dff;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+  word-break: break-word;
+}
+.order-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem; /* increased padding for breathing room */
+  width: 100%;
+}
+
+.order-amounts {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 1.1rem;
+  min-width: 120px;
+  padding-right: 20px;
+  font-weight: 500;
+}
+
+.order-service {
+  flex: 1;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.border-order {
+  border-top: 3px solid black;
+  width: 88%;
+  margin: auto;
+}
+
+.total-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0rem 4rem;
+  margin: -0.2rem 0rem;
+  width: 100%;
+}
+.total {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #4b286d;
+}
+.total-amounts {
+  color: black;
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-align: right;
+}
+
+.no-orders {
+  text-align: center;
+  font-weight: 500;
+  font-size: 2rem;
+}

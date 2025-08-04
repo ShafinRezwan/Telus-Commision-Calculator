@@ -4,7 +4,7 @@ interface Props {
   orders: Order[];
   onRemove: (id: string) => void;
 }
-
+// list out selected commissions on the calculate page
 function OrderList({ orders, onRemove }: Props) {
   return (
     <div className="order-list">
