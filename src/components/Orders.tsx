@@ -76,6 +76,7 @@ const Orders = () => {
     tid,
     created_at,
     commissions (
+      cid,
       commissionrate (
         display_name,
         rate,
@@ -99,14 +100,37 @@ const Orders = () => {
     fetchOrders();
   }, [selectedDate]);
 
+  const handleDelete = async (tid: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this order? This cannot be undone."
+    );
+
+    if (!confirmDelete) return;
+
+    const { error } = await supabase
+      .from("transactions")
+      .delete()
+      .eq("tid", tid);
+
+    if (error) {
+      console.error("Failed to delete transaction:", error);
+    } else {
+      console.log("Transaction deleted successfully");
+      setShowModal(false);
+      await fetchOrders(); // Refresh the list
+    }
+  };
+
   const EditOrderModal = ({
     order,
     onClose,
     onSave,
+    onDelete,
   }: {
     order: any;
     onClose: () => void;
     onSave: (updated: any) => void;
+    onDelete: (tid: string) => void;
   }) => {
     const [formData, setFormData] = useState({
       notes: order.notes || "",
@@ -132,14 +156,30 @@ const Orders = () => {
       setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleRemoveCommission = (index: number) => {
-      const updated = [...localCommissions];
-      updated.splice(index, 1);
-      setLocalCommissions(updated);
-    };
+    const handleRemoveCommission = async (cid: string) => {
+      // Remove visually
+      setLocalCommissions((prev: any[]) =>
+        prev.filter((c: any) => c.cid !== cid)
+      );
 
+      // Remove from DB
+      const { error } = await supabase
+        .from("commissions")
+        .delete()
+        .eq("cid", cid);
+      if (error) {
+        console.error("Failed to delete commission:", error);
+      }
+    };
     const handleSubmit = () => {
-      onSave({ ...order, ...formData, commissions: localCommissions });
+      const updatedFields = {
+        tid: order.tid,
+        notes: formData.notes?.trim() || null,
+        account_number: formData.account_number?.trim() || null,
+        phone_number: formData.phone_number?.trim() || null,
+      };
+
+      onSave(updatedFields); // Only the transaction fields
       onClose();
     };
 
@@ -154,7 +194,12 @@ const Orders = () => {
     return (
       <div className="modal-overlay" onClick={handleOverlayClick}>
         <div className="modal-content">
-          <h3>Edit Order</h3>
+          <div className="edit-header">
+            <h3>Edit Order</h3>
+            <span onClick={onClose} className="back-btn">
+              Back
+            </span>
+          </div>
           <label>Account Number</label>
           <input
             name="account_number"
@@ -171,12 +216,12 @@ const Orders = () => {
           <label>Services</label>
           <ul className="commissions-list">
             {localCommissions.map((c: any, index: number) => (
-              <li key={index} className="commission">
+              <li key={index} className="commission ">
                 {c.commissionrate?.display_name || "Unknown"}
                 <button
                   type="button"
                   className="remove-btn"
-                  onClick={() => handleRemoveCommission(index)}
+                  onClick={() => handleRemoveCommission(c.cid)}
                 >
                   X
                 </button>
@@ -194,34 +239,34 @@ const Orders = () => {
             <button onClick={handleSubmit} className="save-btn">
               Save
             </button>
-            <button onClick={onClose} className="close-btn">
-              Cancel
+            <button
+              onClick={() => handleDelete(order.tid)}
+              className="delete-btn"
+            >
+              Delete Order
             </button>
           </div>
         </div>
       </div>
     );
   };
-  const handleSave = async (updatedOrder: any) => {
-    const { data, error } = await supabase
+  const handleSave = async (updatedFields: any) => {
+    const { error } = await supabase
       .from("transactions")
       .update({
-        notes: updatedOrder.notes?.trim() || null,
-        phone_number: updatedOrder.phone_number?.trim() || null,
-        account_number: updatedOrder.account_number?.trim() || null,
+        notes: updatedFields.notes,
+        phone_number: updatedFields.phone_number,
+        account_number: updatedFields.account_number,
       })
-      .eq("tid", updatedOrder.tid)
-      .select();
+      .eq("tid", updatedFields.tid);
 
     if (error) {
-      console.error("Failed to update:", error);
+      console.error("Failed to update transaction:", error);
     } else {
-      console.log(" Update successful:", data);
+      console.log("Update successful");
+
+      await fetchOrders(); // Re-fetch to ensure UI matches DB
     }
-    setOrders((prev) =>
-      prev.map((o) => (o.tid === updatedOrder.tid ? updatedOrder : o))
-    );
-    console.log("updated order: ", updatedOrder);
   };
 
   return (
@@ -347,6 +392,7 @@ const Orders = () => {
           order={selectedOrder}
           onClose={() => setShowModal(false)}
           onSave={handleSave}
+          onDelete={handleDelete}
         />
       )}
       <hr className="divider-line" />
