@@ -4,7 +4,6 @@ import { type Tab } from "../types/types";
 import { useState } from "react";
 import Calculate from "../components/Calculate";
 import Orders from "../components/Orders";
-import Profile from "../components/Profile";
 const CommissionCalculatorPage = () => {
   const [activeTab, setActiveTab] = useState<Tab>("calculate");
   return (
