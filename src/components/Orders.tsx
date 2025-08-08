@@ -67,12 +67,6 @@ const Orders = () => {
     });
   };
 
-  const openDatePicker = () => {
-    if (datePickerRef.current) {
-      datePickerRef.current.setOpen(true); // open the picker
-    }
-  };
-
   const fetchOrders = async () => {
     /*
       const {
@@ -133,36 +127,42 @@ const Orders = () => {
   }, [selectedDate, user]);
 
   const handleDelete = async (tid: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this order? This cannot be undone."
-    );
+    if (!window.confirm("Are you sure? This cannot be undone.")) return;
 
-    if (!confirmDelete) return;
+    // 1) delete dependent rows
+    const { error: cErr } = await supabase
+      .from("commissions")
+      .delete()
+      .eq("tid", tid);
 
-    const { error } = await supabase
+    if (cErr) {
+      console.error("Failed to delete commissions:", cErr);
+      return;
+    }
+
+    // 2) delete the parent
+    const { error: tErr } = await supabase
       .from("transactions")
       .delete()
       .eq("tid", tid);
 
-    if (error) {
-      console.error("Failed to delete transaction:", error);
-    } else {
-      console.log("Transaction deleted successfully");
-      setShowModal(false);
-      await fetchOrders(); // Refresh the list
+    if (tErr) {
+      console.error("Failed to delete transaction:", tErr);
+      return;
     }
+
+    setShowModal(false);
+    await fetchOrders();
   };
 
   const EditOrderModal = ({
     order,
     onClose,
     onSave,
-    onDelete,
   }: {
     order: any;
     onClose: () => void;
     onSave: (updated: any) => void;
-    onDelete: (tid: string) => void;
   }) => {
     const [formData, setFormData] = useState({
       notes: order.notes || "",
@@ -438,7 +438,6 @@ const Orders = () => {
           order={selectedOrder}
           onClose={() => setShowModal(false)}
           onSave={handleSave}
-          onDelete={handleDelete}
         />
       )}
       <hr className="divider-line" />
@@ -447,7 +446,7 @@ const Orders = () => {
           <h1 className="total">Total</h1>
           <span className="payperiod-commission">
             Commission to date for pay period - ${" "}
-            {null ? totalsumCommission : "XXX.XX"}
+            {totalsumCommission ? totalsumCommission.toFixed(2) : "XXX.XX"}
           </span>
         </div>
         <div className="total-amounts">

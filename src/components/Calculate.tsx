@@ -1,5 +1,5 @@
 import "../css/calculate.css";
-import { useState, type ChangeEvent, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { type Order } from "../types/types";
 import OrderList from "./OrderList";
 import Select, { type MultiValue } from "react-select";
@@ -35,7 +35,7 @@ function Calculate() {
   }, []);
 
   const [orders, setOrders] = useState<Order[]>([]);
-  const [service, setService] = useState<OptionType[]>([]);
+  const [service, setService] = useState<MultiValue<OptionType>>([]);
   const [formData, setFormData] = useState({
     service: "",
     orderNumber: "",
@@ -252,22 +252,18 @@ function Calculate() {
   };
 
   const setSelectedServices = async (selected: MultiValue<OptionType>) => {
-    setService(selected); // ✅ Store the selected services
+    setService(selected); //  Store the selected services
 
-    const newOrders = await Promise.all(
-      selected.map(async (option) => {
-        return {
-          id: crypto.randomUUID(),
-          service: option.value,
-          orderNumber: formData.orderNumber,
-          accountNumber: formData.accountNumber,
-          phoneNumber: formData.phoneNumber,
-          note: formData.note,
-          commission: option.rate,
-          sv: option.sv,
-        };
-      })
-    );
+    const newOrders = selected.map((option) => ({
+      id: crypto.randomUUID(),
+      service: option.value,
+      orderNumber: formData.orderNumber ?? "",
+      accountNumber: formData.accountNumber ?? "",
+      phoneNumber: formData.phoneNumber ?? "",
+      note: formData.note ?? "",
+      commission: option.rate,
+      sv: option.sv,
+    })) as Order[];
 
     setOrders((prev) => [...prev, ...newOrders]);
     setService([]); // clear select box
@@ -371,6 +367,3 @@ function Calculate() {
 }
 
 export default Calculate;
-function chroma(color: any) {
-  throw new Error("Function not implemented.");
-}
