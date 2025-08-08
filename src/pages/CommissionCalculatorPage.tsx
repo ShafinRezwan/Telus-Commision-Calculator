@@ -8,8 +8,7 @@ import Profile from "../components/Profile";
 const CommissionCalculatorPage = () => {
   const [activeTab, setActiveTab] = useState<Tab>("calculate");
   return (
-    <div>
-      <h1 id="title">Commission Calculator & Tracker</h1>
+    <div className="overall-container">
       <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
       <div className="calculator-container">
         {activeTab === "calculate" && <Calculate />}

@@ -1,0 +1,65 @@
+.register-wrapper {
+  margin-top: 10px;
+}
+.register-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-input {
+  padding: 2rem;
+  border: 3px solid #2b8000;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #2b8000;
+}
+
+.register-input::placeholder {
+  color: #2b8000;
+}
+
+.password-hint {
+  font-size: 12px;
+  color: #2b8000;
+  text-align: left;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  padding-left: 4px;
+  font-style: italic;
+}
+
+.register-submit {
+  margin-top: 20px;
+  background-color: #2b8000;
+  color: white;
+  border: none;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.register-submit:hover {
+  background-color: #166534;
+}
+
+.form-error {
+  color: rgb(201, 1, 1);
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.form-success {
+  color: #166534;
+  font-size: 14px;
+  margin-top: -10px;
+}

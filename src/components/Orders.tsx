@@ -5,6 +5,7 @@ import "../css/orders.css";
 import { format } from "date-fns";
 import { supabase } from "../types/supaBaseClient";
 import { type Order } from "../types/types"; // Your Order interface
+import type { User } from "@supabase/supabase-js";
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -15,6 +16,23 @@ const Orders = () => {
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
+
+  const [loading, setLoading] = useState(true); // start true
+  const [error, setError] = useState<string | null>(null);
+
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error getting user:", error.message);
+        return;
+      }
+      setUser(data.user);
+    };
+
+    fetchUser();
+  }, []);
 
   //total commission calcultation
   const totalsumCommission = orders.reduce((sum: number, order: any) => {
@@ -62,17 +80,22 @@ const Orders = () => {
       } = await supabase.auth.getUser();
       if (!user) return;
       */
-    const hardcodedUid = "fea236b9-4f57-45d3-9ade-7266af9b4674";
-    const startOfDay = new Date(selectedDate);
-    startOfDay.setHours(0, 0, 0, 0);
 
-    const endOfDay = new Date(selectedDate);
-    endOfDay.setHours(23, 59, 59, 999);
+    if (!user) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const user_uid = user?.id;
+      const startOfDay = new Date(selectedDate);
+      startOfDay.setHours(0, 0, 0, 0);
 
-    const { data, error } = await supabase
-      .from("transactions")
-      .select(
-        `
+      const endOfDay = new Date(selectedDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      const { data, error } = await supabase
+        .from("transactions")
+        .select(
+          `
     tid,
     created_at,
     commissions (
@@ -87,18 +110,27 @@ const Orders = () => {
     notes,
     phone_number
   `
-      )
-      .eq("uid", hardcodedUid)
-      .gte("created_at", startOfDay.toISOString())
-      .lte("created_at", endOfDay.toISOString());
+        )
+        .eq("uid", user_uid)
+        .gte("created_at", startOfDay.toISOString())
+        .lte("created_at", endOfDay.toISOString());
 
-    if (!error) setOrders(data as any);
-    else console.error(error);
+      if (error) throw error;
+      setOrders((data as any) ?? []);
+    } catch (e: any) {
+      console.error(e);
+      setError("Couldn’t load orders.");
+      setOrders([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchOrders();
-  }, [selectedDate]);
+    if (user) {
+      fetchOrders();
+    }
+  }, [selectedDate, user]);
 
   const handleDelete = async (tid: string) => {
     const confirmDelete = window.confirm(
@@ -195,7 +227,7 @@ const Orders = () => {
       <div className="modal-overlay" onClick={handleOverlayClick}>
         <div className="modal-content">
           <div className="edit-header">
-            <h3>Edit Order</h3>
+            <h3 id="edit-order">Edit Order</h3>
             <span onClick={onClose} className="back-btn">
               Back
             </span>
@@ -250,6 +282,15 @@ const Orders = () => {
       </div>
     );
   };
+
+  function LoadingOrders() {
+    return (
+      <div className="orders-loading">
+        <div className="spinner" />
+        <span className="loading-text">Loading orders…</span>
+      </div>
+    );
+  }
   const handleSave = async (updatedFields: any) => {
     const { error } = await supabase
       .from("transactions")
@@ -339,7 +380,11 @@ const Orders = () => {
       <hr className="divider-line" />
 
       <div className="orders-list">
-        {orders.length === 0 ? (
+        {loading ? (
+          <LoadingOrders />
+        ) : error ? (
+          <p className="error">{error}</p>
+        ) : orders.length === 0 ? (
           <p className="no-orders">No orders for the day</p>
         ) : (
           orders.map((order: any) => {
@@ -387,6 +432,7 @@ const Orders = () => {
           })
         )}
       </div>
+
       {showModal && selectedOrder && (
         <EditOrderModal
           order={selectedOrder}

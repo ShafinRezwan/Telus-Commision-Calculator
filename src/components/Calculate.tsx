@@ -5,6 +5,7 @@ import OrderList from "./OrderList";
 import Select, { type MultiValue } from "react-select";
 //import { getCommissionRateByName } from "../types/getCommissionRate";
 import { supabase } from "../types/supaBaseClient";
+import type { User } from "@supabase/supabase-js";
 
 function Calculate() {
   type OptionType = {
@@ -19,6 +20,19 @@ function Calculate() {
     label: string;
     options: OptionType[];
   };
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error getting user:", error.message);
+        return;
+      }
+      setUser(data.user);
+    };
+
+    fetchUser();
+  }, []);
 
   const [orders, setOrders] = useState<Order[]>([]);
   const [service, setService] = useState<OptionType[]>([]);
@@ -164,11 +178,12 @@ function Calculate() {
 
   const handleSubmit = async () => {
     //console.log(orders);
+    console.log(user?.id);
     try {
       const { data, error } = await supabase
         .from("transactions")
         .upsert({
-          uid: "fea236b9-4f57-45d3-9ade-7266af9b4674",
+          uid: user?.id,
           notes: formData.note,
           phone_number: formData.phoneNumber,
           order_number: formData.orderNumber,
@@ -339,7 +354,7 @@ function Calculate() {
             className="notes-input"
             value={formData.note}
             onChange={handleChange}
-            rows={10}
+            rows={8}
             cols={40}
           />
         </div>
