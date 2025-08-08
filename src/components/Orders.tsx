@@ -338,7 +338,7 @@ const Orders = () => {
       </div>
       <div className="date_wrapper">
         <div className="profile">
-          <span className="prof">Profile</span>
+          <span className="prof">{user?.user_metadata?.display_name}</span>
         </div>
         <div className="date-center">
           <button className="arrow" onClick={handlePrevDay}>
