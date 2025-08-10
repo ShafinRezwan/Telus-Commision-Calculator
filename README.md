@@ -50,5 +50,6 @@ A Commission Calculator for Telus sales representatives to use to track their sa
 
 ## Contributors
 Front End done by Shafin Rezwan
+<br>
 Back End done by Byron Tung
 ---
