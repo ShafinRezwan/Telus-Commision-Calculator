@@ -97,3 +97,39 @@
   margin-left: auto;
   padding-top: 10px;
 }
+
+/* Tablets */
+@media (max-width: 768px) {
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .auth-card {
+    width: 100vw;
+    height: 100vh;
+    padding: auto;
+    border: none;
+    box-shadow: none;
+  }
+
+  .auth-wrapper {
+    margin-top: 3rem;
+    padding: 0rem 0.5rem;
+    height: 677px;
+  }
+
+  .user-icon-circle {
+    width: 120px;
+  }
+
+  .register-btn,
+  .login-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1.5rem 2rem;
+  }
+  .button-group {
+    margin-top: 2rem;
+    padding: 0%;
+  }
+}

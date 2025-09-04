@@ -6,7 +6,7 @@ import { router } from "./router.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <h1 id="title">Commission Calculator & Tracker</h1>
+    <h1 id="title">Commission Calculator</h1>
     <RouterProvider router={router} />
   </StrictMode>
 );

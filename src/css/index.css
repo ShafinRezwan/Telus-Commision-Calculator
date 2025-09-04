@@ -98,6 +98,20 @@ h1 {
   padding: 1rem 1rem;
 }
 
-.container {
-  padding-bottom: 2rem;
+/* Tablets */
+@media (max-width: 768px) {
+  #title {
+    margin-top: 2rem;
+    font-size: 3rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  #title {
+    font-size: 1.7rem;
+    padding: 0px 10px; /* add some breathing room */
+    padding-bottom: 3rem;
+    line-height: 1em; /* tighter spacing */
+  }
 }
