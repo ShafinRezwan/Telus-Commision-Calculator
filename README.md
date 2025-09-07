@@ -23,7 +23,7 @@ A Commission Calculator for Telus sales representatives to use to track their sa
 
 ---
 ## Demo
-
+https://github.com/ShafinRezwan/Telus-Commision-Calculator/blob/70af4db196d61e5caccd2b920271dbe60729dc2d/resources/Screenshot%202025-08-06%20at%2014.23.21.png
 
 ---
 
