@@ -273,6 +273,150 @@
   font-weight: 400;
 }
 
+/* Daily Goal Styles */
+.daily-goal-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.goal-display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goal-set {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goal-label {
+  color: #4b286d;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.goal-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.goal-bar {
+  flex: 1;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.goal-fill {
+  height: 100%;
+  background-color: #4b286d;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.goal-fill.achieved {
+  background-color: #2b8000;
+}
+
+.goal-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4b286d;
+  min-width: 80px;
+  text-align: right;
+}
+
+.goal-status.achieved {
+  color: #2b8000;
+  font-weight: 600;
+}
+
+.set-goal-btn, .edit-goal-btn {
+  background-color: #4b286d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+}
+
+.set-goal-btn:hover, .edit-goal-btn:hover {
+  background-color: #3a1f5a;
+}
+
+.goal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goal-input-field {
+  padding: 0.5rem;
+  border: 2px solid #4b286d;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.goal-input-field:focus {
+  outline: none;
+  border-color: #2b8000;
+}
+
+.goal-input-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.save-goal-btn {
+  background-color: #2b8000;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-goal-btn:hover {
+  background-color: #166534;
+}
+
+.cancel-goal-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-goal-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Goal achieved state for total amounts */
+.total-amounts.goal-achieved {
+  color: #2b8000;
+}
+
+.total-amounts.goal-achieved p {
+  color: #2b8000;
+  font-weight: 600;
+}
+
 .orders-loading {
   margin-left: auto;
   margin-right: auto;
@@ -473,6 +617,35 @@
     width: 85%;
     max-width: 500px;
   }
+  
+  .daily-goal-section {
+    margin-top: 0.8rem;
+    padding: 0.8rem;
+  }
+  
+  .goal-label {
+    font-size: 0.9rem;
+  }
+  
+  .goal-status {
+    font-size: 0.8rem;
+    min-width: 70px;
+  }
+  
+  .set-goal-btn, .edit-goal-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .goal-input-field {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+  
+  .save-goal-btn, .cancel-goal-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
 
 /* Mobile styles */
@@ -598,6 +771,48 @@
     padding: 1rem;
   }
   
+  .daily-goal-section {
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+  }
+  
+  .goal-label {
+    font-size: 0.85rem;
+  }
+  
+  .goal-progress {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+  
+  .goal-status {
+    font-size: 0.75rem;
+    min-width: auto;
+    text-align: center;
+  }
+  
+  .set-goal-btn, .edit-goal-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    align-self: center;
+  }
+  
+  .goal-input-field {
+    font-size: 16px;
+    padding: 0.5rem;
+  }
+  
+  .goal-input-buttons {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .save-goal-btn, .cancel-goal-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
   .modal-buttons {
     flex-direction: column;
     gap: 0.5rem;
@@ -661,5 +876,33 @@
   
   .commission {
     font-size: 0.9rem;
+  }
+  
+  .daily-goal-section {
+    margin-top: 0.3rem;
+    padding: 0.6rem;
+  }
+  
+  .goal-label {
+    font-size: 0.8rem;
+  }
+  
+  .goal-status {
+    font-size: 0.7rem;
+  }
+  
+  .set-goal-btn, .edit-goal-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .goal-input-field {
+    font-size: 16px;
+    padding: 0.4rem;
+  }
+  
+  .save-goal-btn, .cancel-goal-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
   }
 }

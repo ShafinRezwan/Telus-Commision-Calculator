@@ -21,6 +21,10 @@ const Orders = () => {
   const [error, setError] = useState<string | null>(null);
 
   const [user, setUser] = useState<User | null>(null);
+  const [dailyGoal, setDailyGoal] = useState<number>(0);
+  const [showGoalInput, setShowGoalInput] = useState(false);
+  const [goalInput, setGoalInput] = useState<string>("");
+  
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
@@ -50,6 +54,41 @@ const Orders = () => {
     );
     return sum + orderSV;
   }, 0);
+
+  // Check if daily goal is achieved
+  const isGoalAchieved = dailyGoal > 0 && totalsumCommission >= dailyGoal;
+
+  // Goal management functions
+  const handleSetGoal = () => {
+    const goalValue = parseFloat(goalInput);
+    if (!isNaN(goalValue) && goalValue >= 0) {
+      setDailyGoal(goalValue);
+      setShowGoalInput(false);
+      setGoalInput("");
+      // Store goal in localStorage for persistence
+      localStorage.setItem(`dailyGoal_${user?.id}`, goalValue.toString());
+    }
+  };
+
+  const handleEditGoal = () => {
+    setGoalInput(dailyGoal.toString());
+    setShowGoalInput(true);
+  };
+
+  const handleCancelGoal = () => {
+    setShowGoalInput(false);
+    setGoalInput("");
+  };
+
+  // Load goal from localStorage on component mount
+  useEffect(() => {
+    if (user?.id) {
+      const savedGoal = localStorage.getItem(`dailyGoal_${user.id}`);
+      if (savedGoal) {
+        setDailyGoal(parseFloat(savedGoal));
+      }
+    }
+  }, [user?.id]);
 
   const handlePrevDay = () => {
     setSelectedDate((prev) => {
@@ -457,8 +496,61 @@ const Orders = () => {
             Commission to date for pay period - ${" "}
             {totalsumCommission ? totalsumCommission.toFixed(2) : "XXX.XX"}
           </span>
+          
+          {/* Daily Goal Section */}
+          <div className="daily-goal-section">
+            {!showGoalInput ? (
+              <div className="goal-display">
+                {dailyGoal > 0 ? (
+                  <div className="goal-set">
+                    <span className="goal-label">Daily Goal: ${dailyGoal.toFixed(2)}</span>
+                    <div className="goal-progress">
+                      <div className="goal-bar">
+                        <div 
+                          className={`goal-fill ${isGoalAchieved ? 'achieved' : ''}`}
+                          style={{ 
+                            width: `${Math.min((totalsumCommission / dailyGoal) * 100, 100)}%` 
+                          }}
+                        ></div>
+                      </div>
+                      <span className={`goal-status ${isGoalAchieved ? 'achieved' : ''}`}>
+                        {isGoalAchieved ? '🎉 Goal Achieved!' : `${((totalsumCommission / dailyGoal) * 100).toFixed(1)}%`}
+                      </span>
+                    </div>
+                    <button className="edit-goal-btn" onClick={handleEditGoal}>
+                      Edit Goal
+                    </button>
+                  </div>
+                ) : (
+                  <button className="set-goal-btn" onClick={() => setShowGoalInput(true)}>
+                    Set Daily Goal
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="goal-input">
+                <input
+                  type="number"
+                  placeholder="Enter daily goal ($)"
+                  value={goalInput}
+                  onChange={(e) => setGoalInput(e.target.value)}
+                  className="goal-input-field"
+                  min="0"
+                  step="0.01"
+                />
+                <div className="goal-input-buttons">
+                  <button className="save-goal-btn" onClick={handleSetGoal}>
+                    Save
+                  </button>
+                  <button className="cancel-goal-btn" onClick={handleCancelGoal}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="total-amounts">
+        <div className={`total-amounts ${isGoalAchieved ? 'goal-achieved' : ''}`}>
           <p>$ {totalsumCommission.toFixed(2)}</p>
           <p>SV {totalsumSV.toFixed(2)}</p>
         </div>
