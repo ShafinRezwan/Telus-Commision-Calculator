@@ -35,7 +35,12 @@ EDIT ORDER
 ---
 
 ## Features
-
+- 👤 **Login** – Login and register accounts 
+- 💸 **Calculate sales** – Create sales orders, auto calculate total of the order, include order details (notes,order number, account, number, phone number)
+- 📝 **Orders** – Dedicated page to view orders for current day, can navigate to previous days to see orders on previous days,total made that day calculated
+- 📊 **Edit Orders** – Click on order to view details of that order and to make changes if needed
+- 🏁 **Finish Day Toggle** – Mark the day complete with styling feedback
+- 🖼️ **Telus themed UX** – followed Telus brand identity
 
 ---
 
