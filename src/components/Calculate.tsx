@@ -280,8 +280,17 @@ function Calculate() {
       backgroundColor: "white",
       border: "2px solid #2b8000",
       borderRadius: "8px",
-      width: `13vw`,
-      height: "7vh",
+      width: "100%",
+      minHeight: "50px",
+      fontSize: "16px",
+    }),
+    menu: (styles: any) => ({
+      ...styles,
+      fontSize: "16px",
+    }),
+    option: (styles: any) => ({
+      ...styles,
+      fontSize: "16px",
     }),
   };
 

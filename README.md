@@ -37,7 +37,11 @@ A Commission Calculator for Telus sales representatives to use to track their sa
 ---
 
 ## Usage
-
+Use test account:
+<br>
+Email - test@testing.com
+<br>
+Password - Testing123!
 ---
 
 ## Configuration
@@ -49,5 +53,7 @@ A Commission Calculator for Telus sales representatives to use to track their sa
 
 
 ## Contributors
-
+Front End done by Shafin Rezwan
+<br>
+Back End done by Byron Tung
 ---

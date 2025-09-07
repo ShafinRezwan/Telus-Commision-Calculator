@@ -405,3 +405,235 @@
 .delete-btn:hover {
   background-color: #cc0000;
 }
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .order-container {
+    margin-top: -20px;
+  }
+  
+  .pay-container {
+    padding-left: 30px;
+  }
+  
+  .profile {
+    right: 1rem;
+    margin-right: 20px;
+  }
+  
+  .orders-list {
+    max-width: 900px;
+    height: 400px;
+  }
+  
+  .order-entry {
+    padding: 0.8rem 2rem;
+  }
+  
+  .services-title {
+    font-size: 1.8rem;
+  }
+  
+  .order-amounts {
+    font-size: 1rem;
+    min-width: 100px;
+  }
+  
+  .total-container {
+    padding: 0rem 2rem;
+  }
+  
+  .total {
+    font-size: 1.8rem;
+  }
+  
+  .total-amounts {
+    font-size: 1.3rem;
+  }
+  
+  .modal-content {
+    width: 85%;
+    max-width: 500px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .order-container {
+    margin-top: -20px;
+    padding: 0 1rem;
+  }
+  
+  .pay-container {
+    padding-left: 0;
+    align-self: center;
+    margin-bottom: 1rem;
+  }
+  
+  .pay-container span {
+    font-size: 1rem;
+  }
+  
+  .pay-period {
+    font-size: 0.9rem;
+  }
+  
+  .date_wrapper {
+    margin-top: -30px;
+    height: 40px;
+  }
+  
+  .profile {
+    position: static;
+    margin: 0;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .date-center {
+    position: static;
+    transform: none;
+    gap: 0.5rem;
+  }
+  
+  .current-date {
+    font-size: 1.5rem;
+  }
+  
+  .arrow {
+    font-size: 1.5rem;
+    padding: 0 10px;
+  }
+  
+  .orders-list {
+    width: 100%;
+    max-width: none;
+    height: 350px;
+    padding-right: 5px;
+  }
+  
+  .order-entry {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .order-service {
+    padding-left: 0;
+    width: 100%;
+  }
+  
+  .services-title {
+    font-size: 1.5rem;
+    word-break: break-word;
+  }
+  
+  .order-amounts {
+    align-self: flex-end;
+    text-align: right;
+    font-size: 1rem;
+    min-width: auto;
+    padding-right: 0;
+  }
+  
+  .border-order {
+    width: 95%;
+  }
+  
+  .total-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .leftside-total {
+    text-align: center;
+  }
+  
+  .total {
+    font-size: 1.5rem;
+  }
+  
+  .payperiod-commission {
+    font-size: 0.9rem;
+  }
+  
+  .total-amounts {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    height: 85%;
+    padding: 1rem;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .save-btn,
+  .delete-btn {
+    width: 100%;
+  }
+  
+  .commissions-list {
+    max-height: 150px;
+  }
+  
+  .commission {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-container {
+    padding: 0 0.5rem;
+  }
+  
+  .current-date {
+    font-size: 1.3rem;
+  }
+  
+  .arrow {
+    font-size: 1.3rem;
+    padding: 0 8px;
+  }
+  
+  .orders-list {
+    height: 300px;
+  }
+  
+  .order-entry {
+    padding: 0.8rem;
+  }
+  
+  .services-title {
+    font-size: 1.3rem;
+  }
+  
+  .order-amounts {
+    font-size: 0.9rem;
+  }
+  
+  .total {
+    font-size: 1.3rem;
+  }
+  
+  .total-amounts {
+    font-size: 1.1rem;
+  }
+  
+  .modal-content {
+    padding: 0.8rem;
+  }
+  
+  .commission {
+    font-size: 0.9rem;
+  }
+}

@@ -42,6 +42,8 @@ html,
 body {
   /* overflow content is clipped to fit horizontal elem box */
   overflow-x: hidden;
+  /* Prevent zoom on input focus on iOS */
+  -webkit-text-size-adjust: 100%;
 }
 
 body,
@@ -109,9 +111,23 @@ h1 {
 /* Mobile phones */
 @media (max-width: 480px) {
   #title {
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     padding: 0px 10px; /* add some breathing room */
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
     line-height: 1em; /* tighter spacing */
+  }
+
+  /* Ensure inputs are at least 16px to prevent zoom on iOS */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Improve touch targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

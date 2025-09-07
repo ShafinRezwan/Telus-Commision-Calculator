@@ -95,3 +95,95 @@
 .password-popup .invalid {
   color: #920000;
 }
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .register-input {
+    padding: 1.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .register-submit {
+    font-size: 1.1rem;
+    padding: 1.4rem;
+  }
+  
+  .password-hint {
+    font-size: 11px;
+  }
+  
+  .password-popup {
+    font-size: 0.8rem;
+    min-width: 200px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .register-wrapper {
+    margin-top: 5px;
+  }
+  
+  .register-icon-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .register-form {
+    gap: 8px;
+  }
+  
+  .register-input {
+    padding: 1.5rem;
+    font-size: 1rem;
+    border: 2px solid #2b8000;
+  }
+  
+  .register-submit {
+    margin-top: 15px;
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+  
+  .password-hint {
+    font-size: 10px;
+    margin-top: -2px;
+  }
+  
+  .form-error,
+  .form-success {
+    font-size: 13px;
+  }
+  
+  .password-popup {
+    font-size: 0.75rem;
+    min-width: 180px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-input {
+    padding: 1.2rem;
+    font-size: 16px;
+  }
+  
+  .register-submit {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .password-hint {
+    font-size: 9px;
+  }
+  
+  .form-error,
+  .form-success {
+    font-size: 12px;
+  }
+  
+  .password-popup {
+    font-size: 0.7rem;
+    min-width: 160px;
+    padding: 5px 8px;
+  }
+}

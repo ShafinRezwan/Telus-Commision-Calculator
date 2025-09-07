@@ -41,3 +41,55 @@
 .login-submit:hover {
   background-color: #4b286d;
 }
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .login-input {
+    padding: 1.8rem;
+    font-size: 1.1rem;
+  }
+  
+  .login-submit {
+    font-size: 1.1rem;
+    padding: 1.4rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .login-wrapper {
+    margin-top: 5px;
+  }
+  
+  .login-icon-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    gap: 8px;
+  }
+  
+  .login-input {
+    padding: 1.5rem;
+    font-size: 1rem;
+    border: 2px solid #4b286d;
+  }
+  
+  .login-submit {
+    margin-top: 15px;
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-input {
+    padding: 1.2rem;
+    font-size: 16px;
+  }
+  
+  .login-submit {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}

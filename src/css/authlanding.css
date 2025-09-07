@@ -98,38 +98,92 @@
   padding-top: 10px;
 }
 
-/* Tablets */
-@media (max-width: 768px) {
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .auth-card {
+    width: 600px;
+    min-height: 550px;
+    padding: 50px;
+  }
+  
+  .user-icon-circle {
+    width: 120px;
+  }
+  
+  .register-btn,
+  .login-btn {
+    font-size: 1.3rem;
+    padding: 1.4rem;
+  }
 }
 
-/* Mobile phones */
+/* Mobile styles */
+@media (max-width: 768px) {
+  .auth-wrapper {
+    padding: 1rem;
+    margin-top: 0;
+  }
+  
+  .auth-card {
+    width: 100%;
+    max-width: 500px;
+    min-height: 500px;
+    padding: 40px 30px;
+    margin-top: 0;
+  }
+  
+  .user-icon-circle {
+    width: 110px;
+  }
+  
+  .register-btn,
+  .login-btn {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1.3rem;
+  }
+  
+  .button-group {
+    margin-top: 1.5rem;
+    gap: 15px;
+  }
+}
+
 @media (max-width: 480px) {
   .auth-card {
     width: 100vw;
     height: 100vh;
-    padding: auto;
+    padding: 30px 20px;
     border: none;
     box-shadow: none;
+    border-radius: 0;
   }
 
   .auth-wrapper {
-    margin-top: 3rem;
-    padding: 0rem 0.5rem;
-    height: 677px;
+    margin-top: 0;
+    padding: 0;
+    height: 100vh;
   }
 
   .user-icon-circle {
-    width: 120px;
+    width: 100px;
   }
 
   .register-btn,
   .login-btn {
     width: 100%;
     font-size: 1rem;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem;
   }
+  
   .button-group {
-    margin-top: 2rem;
-    padding: 0%;
+    margin-top: 1rem;
+    gap: 12px;
+  }
+  
+  .back-btn {
+    margin-left: 0;
+    padding-top: 15px;
+    font-size: 1rem;
   }
 }
