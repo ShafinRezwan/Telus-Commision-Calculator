@@ -12,6 +12,7 @@
   margin-right: auto;
   justify-content: center;
   margin-top: -1rem;
+  padding-top: 1.5rem;
 }
 
 .order-form {
@@ -115,20 +116,20 @@ label {
     gap: 0.8rem;
     margin-top: 0;
   }
-  
+
   .input-bundle {
     min-width: 200px;
   }
-  
+
   input {
     font-size: 16px;
     padding: 1.2rem;
   }
-  
+
   label {
     font-size: 1.8rem;
   }
-  
+
   .total-calc {
     margin-right: 40px;
   }
@@ -142,29 +143,34 @@ label {
     gap: 1rem;
     margin-top: 0;
     padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .input-bundle {
     width: 100%;
     min-width: auto;
   }
-  
+
   .service {
     margin-right: 0;
   }
 
   input {
     width: 100%;
+    max-width: 100%;
     min-width: auto;
     font-size: 16px;
     padding: 1rem;
     height: auto;
+    box-sizing: border-box;
   }
-  
+
   label {
     font-size: 1.5rem;
   }
-  
+
   .select-wrapper {
     width: 100%;
     margin-right: 0;
@@ -181,37 +187,50 @@ label {
     flex-direction: column;
     align-items: stretch;
     padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .submit-btn {
     width: 100%;
+    max-width: 100%;
     font-size: 1.2rem;
     padding: 1rem 2rem;
+    box-sizing: border-box;
   }
-  
+
   .total-calc {
     margin-right: 20px;
     margin-top: 0.5rem;
   }
-  
+
   .total-calc span {
     font-size: 1.2rem;
   }
-  
+
   .notes-input {
     width: 100%;
+    max-width: 100%;
     font-size: 16px;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 480px) {
   .form-container {
     padding: 0 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   input {
     padding: 0.8rem;
     font-size: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   label {
@@ -220,11 +239,17 @@ label {
   
   .notes-container {
     padding: 0 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .submit-btn {
     font-size: 1.1rem;
     padding: 0.8rem 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .total-calc {
@@ -233,6 +258,12 @@ label {
   
   .total-calc span {
     font-size: 1.1rem;
+  }
+  
+  .notes-input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 

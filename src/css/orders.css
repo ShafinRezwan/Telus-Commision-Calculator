@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  padding-top: 4rem;
   width: 100%;
   margin-top: -40px;
 }
@@ -75,35 +75,111 @@
 .arrow:hover {
   font-size: 2.5rem;
 }
-.profile {
+/* Profile Dropdown Styles */
+.profile-dropdown-container {
   margin-left: auto;
   position: relative;
   right: 2rem;
+  margin-right: 40px;
+}
+
+.profile {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  margin-right: 40px;
   color: #4b286d;
   font-style: italic;
   text-decoration: underline;
   display: flex;
   align-items: center;
-  gap: 1rem;
-}
-
-.logout-btn {
-  background-color: #c30000;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   border-radius: 5px;
-  font-size: 0.9rem;
-  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
+.profile:hover {
+  background-color: rgba(75, 40, 109, 0.1);
+}
+
+.dropdown-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.user-info {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  cursor: default;
+}
+
+.user-info:hover {
+  background-color: transparent;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: #4b286d;
+  font-weight: 500;
+}
+
+.dropdown-divider {
+  border: none;
+  border-top: 1px solid #e9ecef;
+  margin: 0;
+}
+
+.logout-btn {
+  color: #c30000;
+  font-weight: 500;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
 .logout-btn:hover {
-  background-color: #a00000;
+  background-color: #fff5f5;
+  color: #a00000;
+}
+
+.logout-icon {
+  font-size: 1rem;
 }
 .pay-container {
   font-size: 1.2rem;
@@ -337,7 +413,8 @@
   font-weight: 600;
 }
 
-.set-goal-btn, .edit-goal-btn {
+.set-goal-btn,
+.edit-goal-btn {
   background-color: #4b286d;
   color: white;
   border: none;
@@ -349,7 +426,8 @@
   align-self: flex-start;
 }
 
-.set-goal-btn:hover, .edit-goal-btn:hover {
+.set-goal-btn:hover,
+.edit-goal-btn:hover {
   background-color: #3a1f5a;
 }
 
@@ -573,76 +651,86 @@
   .order-container {
     margin-top: -20px;
   }
-  
+
   .pay-container {
     padding-left: 30px;
   }
-  
-  .profile {
+
+  .profile-dropdown-container {
     right: 1rem;
     margin-right: 20px;
   }
-  
+
+  .profile {
+    font-size: 0.9rem;
+  }
+
+  .user-dropdown {
+    min-width: 180px;
+  }
+
   .orders-list {
     max-width: 900px;
     height: 400px;
   }
-  
+
   .order-entry {
     padding: 0.8rem 2rem;
   }
-  
+
   .services-title {
     font-size: 1.8rem;
   }
-  
+
   .order-amounts {
     font-size: 1rem;
     min-width: 100px;
   }
-  
+
   .total-container {
     padding: 0rem 2rem;
   }
-  
+
   .total {
     font-size: 1.8rem;
   }
-  
+
   .total-amounts {
     font-size: 1.3rem;
   }
-  
+
   .modal-content {
     width: 85%;
     max-width: 500px;
   }
-  
+
   .daily-goal-section {
     margin-top: 0.8rem;
     padding: 0.8rem;
   }
-  
+
   .goal-label {
     font-size: 0.9rem;
   }
-  
+
   .goal-status {
     font-size: 0.8rem;
     min-width: 70px;
   }
-  
-  .set-goal-btn, .edit-goal-btn {
+
+  .set-goal-btn,
+  .edit-goal-btn {
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
   }
-  
+
   .goal-input-field {
     font-size: 0.9rem;
     padding: 0.4rem;
   }
-  
-  .save-goal-btn, .cancel-goal-btn {
+
+  .save-goal-btn,
+  .cancel-goal-btn {
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
   }
@@ -652,82 +740,136 @@
 @media (max-width: 768px) {
   .order-container {
     margin-top: -20px;
-    padding: 0 1rem;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
-  
+
+  /* Mobile header layout - top row */
   .pay-container {
+    padding-top: 0.6rem;
     padding-left: 0;
-    align-self: center;
-    margin-bottom: 1rem;
-  }
-  
-  .pay-container span {
-    font-size: 1rem;
-  }
-  
-  .pay-period {
-    font-size: 0.9rem;
-  }
-  
-  .date_wrapper {
-    margin-top: -30px;
-    height: 40px;
-  }
-  
-  .profile {
-    position: static;
-    margin: 0;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    flex-direction: column;
-    gap: 0.5rem;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    gap: 0.5rem;
   }
-  
-  .logout-btn {
+
+  .pay-container span {
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .pay-period {
     font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
-  
+
+  /* Mobile header layout - top row positioning */
+  .date_wrapper {
+    margin-top: 0;
+    height: auto;
+    padding-top: 2.5rem;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  /* Username in top right */
+  .profile-dropdown-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    z-index: 10;
+    transform: translateX(0);
+  }
+
+  .profile {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    justify-content: flex-start;
+  }
+
+  .user-dropdown {
+    right: 0;
+    left: auto;
+    transform: none;
+    min-width: 140px;
+  }
+
+  .dropdown-item {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.75rem;
+  }
+
+  .user-email {
+    font-size: 0.65rem;
+  }
+
+  .user-name {
+    font-size: 0.75rem;
+  }
+
+  /* Centered date navigation */
   .date-center {
     position: static;
     transform: none;
     gap: 0.5rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .current-date {
     font-size: 1.5rem;
   }
-  
+
   .arrow {
     font-size: 1.5rem;
     padding: 0 10px;
   }
-  
+
   .orders-list {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     height: 350px;
     padding-right: 5px;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
-  
+
   .order-entry {
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
-  
+
   .order-service {
     padding-left: 0;
     width: 100%;
   }
-  
+
   .services-title {
     font-size: 1.5rem;
     word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
   }
-  
+
   .order-amounts {
     align-self: flex-end;
     text-align: right;
@@ -735,98 +877,100 @@
     min-width: auto;
     padding-right: 0;
   }
-  
+
   .border-order {
     width: 95%;
   }
-  
+
   .total-container {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
     gap: 1rem;
   }
-  
+
   .leftside-total {
     text-align: center;
   }
-  
+
   .total {
     font-size: 1.5rem;
   }
-  
+
   .payperiod-commission {
     font-size: 0.9rem;
   }
-  
+
   .total-amounts {
     font-size: 1.2rem;
     text-align: center;
   }
-  
+
   .modal-content {
     width: 95%;
     max-width: none;
     height: 85%;
     padding: 1rem;
   }
-  
+
   .daily-goal-section {
     margin-top: 0.5rem;
     padding: 0.8rem;
   }
-  
+
   .goal-label {
     font-size: 0.85rem;
   }
-  
+
   .goal-progress {
     flex-direction: column;
     align-items: stretch;
     gap: 0.3rem;
   }
-  
+
   .goal-status {
     font-size: 0.75rem;
     min-width: auto;
     text-align: center;
   }
-  
-  .set-goal-btn, .edit-goal-btn {
+
+  .set-goal-btn,
+  .edit-goal-btn {
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
     align-self: center;
   }
-  
+
   .goal-input-field {
     font-size: 16px;
     padding: 0.5rem;
   }
-  
+
   .goal-input-buttons {
     flex-direction: column;
     gap: 0.3rem;
   }
-  
-  .save-goal-btn, .cancel-goal-btn {
+
+  .save-goal-btn,
+  .cancel-goal-btn {
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
   }
-  
+
   .modal-buttons {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .save-btn,
   .delete-btn {
     width: 100%;
   }
-  
+
   .commissions-list {
     max-height: 150px;
   }
-  
+
   .commission {
     font-size: 1rem;
   }
@@ -834,74 +978,134 @@
 
 @media (max-width: 480px) {
   .order-container {
-    padding: 0 0.5rem;
-  }
-  
-  .current-date {
-    font-size: 1.3rem;
-  }
-  
-  .arrow {
-    font-size: 1.3rem;
-    padding: 0 8px;
-  }
-  
-  .orders-list {
-    height: 300px;
-  }
-  
-  .order-entry {
     padding: 0.8rem;
   }
-  
+
+  /* Small mobile adjustments for header */
+  .pay-container {
+    padding-top: 0.6rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .pay-container span {
+    font-size: 0.8rem;
+  }
+
+  .pay-period {
+    font-size: 0.7rem;
+    gap: 0.2rem;
+  }
+
+  .date_wrapper {
+    padding-top: 2.2rem;
+  }
+
+  .profile-dropdown-container {
+    right: 0;
+    transform: translateX(0);
+  }
+
+  .profile {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .user-dropdown {
+    min-width: 120px;
+  }
+
+  .dropdown-item {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .user-email {
+    font-size: 0.6rem;
+  }
+
+  .user-name {
+    font-size: 0.7rem;
+  }
+
+  .current-date {
+    font-size: 1.2rem;
+  }
+
+  .arrow {
+    font-size: 1.2rem;
+    padding: 0 6px;
+  }
+
+  .orders-list {
+    height: 300px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .order-entry {
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .services-title {
     font-size: 1.3rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
   }
-  
+
   .order-amounts {
     font-size: 0.9rem;
   }
-  
+
   .total {
     font-size: 1.3rem;
   }
-  
+
   .total-amounts {
     font-size: 1.1rem;
   }
-  
+
   .modal-content {
     padding: 0.8rem;
   }
-  
+
   .commission {
     font-size: 0.9rem;
   }
-  
+
   .daily-goal-section {
     margin-top: 0.3rem;
     padding: 0.6rem;
   }
-  
+
   .goal-label {
     font-size: 0.8rem;
   }
-  
+
   .goal-status {
     font-size: 0.7rem;
   }
-  
-  .set-goal-btn, .edit-goal-btn {
+
+  .set-goal-btn,
+  .edit-goal-btn {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
   }
-  
+
   .goal-input-field {
     font-size: 16px;
     padding: 0.4rem;
   }
-  
-  .save-goal-btn, .cancel-goal-btn {
+
+  .save-goal-btn,
+  .cancel-goal-btn {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
   }

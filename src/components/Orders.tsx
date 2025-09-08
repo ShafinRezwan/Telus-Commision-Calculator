@@ -24,6 +24,7 @@ const Orders = () => {
   const [dailyGoal, setDailyGoal] = useState<number>(0);
   const [showGoalInput, setShowGoalInput] = useState(false);
   const [goalInput, setGoalInput] = useState<string>("");
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
   
   useEffect(() => {
     const fetchUser = async () => {
@@ -89,6 +90,35 @@ const Orders = () => {
       }
     }
   }, [user?.id]);
+
+  // Handle dropdown toggle
+  const toggleUserDropdown = () => {
+    setShowUserDropdown(!showUserDropdown);
+  };
+
+  // Handle logout
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setShowUserDropdown(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.profile-dropdown-container')) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    if (showUserDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserDropdown]);
 
   const handlePrevDay = () => {
     setSelectedDate((prev) => {
@@ -376,17 +406,28 @@ const Orders = () => {
         </div>
       </div>
       <div className="date_wrapper">
-        <div className="profile">
-          <span className="prof">{user?.user_metadata?.display_name || user?.email}</span>
-          <button 
-            className="logout-btn" 
-            onClick={async () => {
-              await supabase.auth.signOut();
-            }}
-            title="Logout"
-          >
-            Logout
-          </button>
+        <div className="profile-dropdown-container">
+          <div className="profile" onClick={toggleUserDropdown}>
+            <span className="prof">{user?.user_metadata?.display_name || user?.email}</span>
+            <span className="dropdown-arrow">{showUserDropdown ? '▲' : '▼'}</span>
+          </div>
+          
+          {showUserDropdown && (
+            <div className="user-dropdown">
+              <div className="dropdown-item user-info">
+                <span className="user-email">{user?.email}</span>
+                <span className="user-name">{user?.user_metadata?.display_name || 'User'}</span>
+              </div>
+              <hr className="dropdown-divider" />
+              <button 
+                className="dropdown-item logout-btn" 
+                onClick={handleLogout}
+              >
+                <span className="logout-icon">🚪</span>
+                Logout
+              </button>
+            </div>
+          )}
         </div>
         <div className="date-center">
           <button className="arrow" onClick={handlePrevDay}>
